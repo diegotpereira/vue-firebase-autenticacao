@@ -2,13 +2,36 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/register">Register</router-link> |
-      <router-link to="/dashboard">Dashboard</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/registrar">Cadastrar</router-link> |
+      <router-link to="/painel">Painel</router-link> |
+      <router-link to="/sobre">Sobre</router-link> |
+      <button @click="sair">Sair</button>
     </div>
     <router-view />
   </div>
 </template>
+
+<script>
+import firebase from 'firebase'
+
+export default {
+  methods: {
+    sair() {
+      firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        alert('Desconectado com sucesso.')
+        this.$router.push('/')
+      })
+      .catch(error => {
+        alert(error.messsage)
+        this.$router.push('/')
+      })
+    }
+  }
+}
+</script>
 
 <style>
 

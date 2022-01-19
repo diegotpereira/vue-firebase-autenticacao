@@ -1,6 +1,6 @@
 <template>
   <div>   
-  <form @submit.prevent="login">     
+  <form @submit.prevent="entrar">     
     <h2>Entrar</h2>     
     <input       
       type="email"       
@@ -20,13 +20,28 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from "@/components/HelloWorld.vue";
+import firebase from 'firebase'
 
 export default {
   name: "Home",
-  components: {
-    // HelloWorld,
+  data() {
+    return {
+      email: '',
+      password: '',
+    }
   },
+  methods: {
+    entrar() {
+      firebase
+      .auth().signInWithEmailAndPassword(this.email, this.password)
+      .then(() => {
+        alert('Logado com sucesso');
+        this.$router.push('/painel')
+      })
+      .catch(error => {
+        alert(error.message);
+      });
+    }
+  }
 };
 </script>
